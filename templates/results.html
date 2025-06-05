@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matching Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #eef2f3;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .resume-entry {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+        }
+        .resume-entry:last-child {
+            border-bottom: none;
+        }
+        a.download {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a.download:hover {
+            text-decoration: underline;
+        }
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+        }
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Qualified Resumes</h2>
+        <p><strong>Minimum Experience Required:</strong> {{ min_experience }} years</p>
+        {% if resumes %}
+            {% for resume in resumes %}
+                <div class="resume-entry">
+                    <p><strong>{{ resume.filename }}</strong></p>
+                    <p>Score: {{ resume.score }}<br>
+                    Experience: {{ resume.experience or 'N/A' }} years 
+                    {% if resume.experience_met %}(✓){% else %}(✗){% endif %}</p>
+                    <p><a class="download" href="{{ url_for('download_resume', filename=resume['filename']) }}">Download Resume</a></p>
+                    <details>
+                        <summary>Keyword Context</summary>
+                        <ul>
+                        {% for kw, contexts in resume.found_sections.items() %}
+                            <li><strong>{{ kw }}</strong>
+                                <ul>
+                                    {% for c in contexts %}
+                                        <li>{{ c[:100] }}...</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </details>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No matching resumes found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Matcher</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; background: #f4f4f4; }
+        form { background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 700px; margin: auto; }
+        label { display: block; margin-top: 1rem; font-weight: bold; }
+        input[type="text"], input[type="number"], textarea, input[type="file"] {
+            width: 100%; padding: 0.5rem; margin-top: 0.5rem; border-radius: 5px; border: 1px solid #ccc;
+        }
+        textarea {
+            height: 120px;
+        }
+        button {
+            margin-top: 1.5rem; padding: 0.7rem 2rem; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Resume Matcher Application</h2>
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <label for="job_description">Job Description:</label>
+        <textarea name="job_description" required></textarea>
+
+        <label for="mandatory_keywords">Mandatory Keywords (comma-separated):</label>
+        <input type="text" name="mandatory_keywords" required>
+
+        <label for="optional_keywords">Optional Keywords (comma-separated):</label>
+        <input type="text" name="optional_keywords">
+
+        <label for="min_experience">Minimum Experience (in years):</label>
+        <input type="number" step="0.1" name="min_experience" required>
+
+        <label for="resumes">Upload Resumes (PDF/DOC/DOCX):</label>
+        <input type="file" name="resumes" multiple required>
+
+        <button type="submit">Process Resumes</button>
+    </form>
+</body>
+</html>
