@@ -1,0 +1,6 @@
+Flask
+pdfplumber
+pytesseract
+python-docx
+pdf2image
+gunicorn
